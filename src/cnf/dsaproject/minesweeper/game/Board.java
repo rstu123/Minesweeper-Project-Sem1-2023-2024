@@ -8,9 +8,12 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 
-import 
+import cnf.dsaproject.minesweeper.game.states.*;
 import cnf.dsaproject.minesweeper.gfx.Assets;
 
 public class Board {
-    
+    private int N;
+	private int NMines;
+	private int NCovered;
+	private GameStates Gamestate;
 }
