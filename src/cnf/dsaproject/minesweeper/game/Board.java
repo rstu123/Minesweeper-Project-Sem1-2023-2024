@@ -31,4 +31,30 @@ public class Board {
 			CellStates.UNC0, CellStates.UNC1, CellStates.UNC2, CellStates.UNC3, 
 			CellStates.UNC4, CellStates.UNC5, CellStates.UNC6, CellStates.UNC7, CellStates.UNC8 
 	};
+	public Board(int N, int NMines) {
+		// parameters should have be checked before here
+		// if, somehow, they are still invalid, overwrite them with defaults
+		if (N < 10 || N > 1000 || NMines < 1 || NMines > N * N) {
+			N = 30;
+			NMines = 100;
+		}
+
+		this.N = N;
+		this.NCovered = N * N;
+		this.NMines = NMines;
+
+		isMine = new boolean[N][N];
+		mineCnt = new int[N + 2][N + 2];
+		states = new CellStates[N][N];
+
+		putMines();
+
+		for (int i = 0; i < N; i++)
+			Arrays.fill(states[i], CellStates.COVERED);
+
+		gameState = GameStates.ONGOING;
+	}
+
+	// randomly place mines in the board
+	// and update "count of mines" of neighboring cells
 }
