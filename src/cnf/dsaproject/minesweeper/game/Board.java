@@ -92,4 +92,43 @@ public class Board {
 	
 	// when click on an empty cell (has no mines around)
 	// expand the uncovered region automatically
+	private void bfs(int row, int col, Graphics g) {
+		Queue<Integer> q = new ArrayDeque<>();
+		Set<Integer> visited = new HashSet<>();
+
+		NCovered++;
+		q.add(row * N + col);
+		visited.add(row * N + col);
+
+		while (!q.isEmpty()) {
+			int r = q.peek() / N;
+			int c = q.poll() % N;
+
+			if (states[r][c] != CellStates.COVERED)
+				continue;
+
+			states[r][c] = uncoveredStates[mineCnt[r + 1][c + 1]];
+			Assets.draw(r, c, states[r][c], g);
+			NCovered--;
+
+			if (states[r][c] != CellStates.UNC0)
+				continue;
+
+			for (int i = 0; i < di.length; i++) {
+				int _r = r + di[i];
+				int _c = c + dj[i];
+				int key = _r * N + _c;
+				if (_r < 0 || _r >= N || _c < 0 || _c >= N || visited.contains(key))
+					continue;
+				q.add(key);
+				visited.add(key);
+			}
+		}
+
+		if (NCovered == NMines)
+			gameState = GameStates.WON;
+	}
+
+	// when user left-clicks on a cell, uncover it
+	// the game can end after this
 }
