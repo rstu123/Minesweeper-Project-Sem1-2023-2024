@@ -57,4 +57,39 @@ public class Board {
 
 	// randomly place mines in the board
 	// and update "count of mines" of neighboring cells
+	private void putMines() {
+		Random rand = new Random();
+		int mines = NMines;
+		while (mines-- > 0) {
+			int pos = rand.nextInt(NCovered);
+			int x = pos % N;
+			int y = pos / N;
+			if (isMine[y][x])
+				mines++;
+			else {
+				isMine[y][x] = true;
+				for (int d = 0; d < di.length; d++) {
+					mineCnt[y + di[d] + 1][x + dj[d] + 1]++;
+				}
+			}
+		}
+	}
+
+	// when game stopped, display covered mines, etc.
+	private void uncoverAll(Graphics g, boolean won) {
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (states[i][j] == CellStates.COVERED && isMine[i][j]) {
+					states[i][j] = won ? CellStates.FLAGGED : CellStates.MINE;
+					Assets.draw(i, j, states[i][j], g);
+				} else if (states[i][j] == CellStates.FLAGGED && !isMine[i][j]) {
+					states[i][j] = CellStates.WRONG_FLAG;
+					Assets.draw(i, j, states[i][j], g);
+				}
+			}
+		}
+	}
+	
+	// when click on an empty cell (has no mines around)
+	// expand the uncovered region automatically
 }
