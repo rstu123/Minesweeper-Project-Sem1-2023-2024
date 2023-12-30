@@ -131,4 +131,41 @@ public class Board {
 
 	// when user left-clicks on a cell, uncover it
 	// the game can end after this
+	public boolean uncoverCell(int row, int col, Graphics g) {
+		if (states[row][col] != CellStates.COVERED)
+			return false;
+		if (isMine[row][col]) {
+			gameState = GameStates.LOST;
+			uncoverAll(g, false);
+			states[row][col] = CellStates.FIRED_MINE;
+			Assets.draw(row, col, CellStates.FIRED_MINE, g);
+		} else {
+			NCovered--;
+
+			Assets.draw(row, col, uncoveredStates[mineCnt[row + 1][col + 1]], g);
+			if (NCovered == NMines) {
+				gameState = GameStates.WON;
+				uncoverAll(g, true);
+			} else
+				bfs(row, col, g);
+		}
+		g.dispose();
+		return true;
+	}
+
+	// when user right-clicks on a cell, we set/remove the flag
+	public void toggleFlag(int row, int col, Graphics g) {
+		if (states[row][col] == CellStates.COVERED)
+			states[row][col] = CellStates.FLAGGED;
+		else if (states[row][col] == CellStates.FLAGGED)
+			states[row][col] = CellStates.COVERED;
+
+		Assets.draw(row, col, states[row][col], g);
+		g.dispose();
+	}
+
+	public GameStates getGameState() {
+		return gameState;
+	}
+
 }
