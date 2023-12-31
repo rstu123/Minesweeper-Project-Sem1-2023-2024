@@ -1,5 +1,5 @@
 package cnf.dsaproject.minesweeper.game.states;
 
-public class GameStates {
-    
+public enum GameStates {
+    ONGOING, LOST, WON
 }
