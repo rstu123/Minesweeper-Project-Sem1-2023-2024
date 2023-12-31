@@ -15,7 +15,9 @@ public class Board {
     private int N;
 	private int NMines;
 	private int NCovered;
-	private GameStates Gamestate;
+
+	//fix 1:51 1/1/2024
+	private GameStates gameState;
 
 	private boolean[][] isMine;
 	private int[][] mineCnt;
