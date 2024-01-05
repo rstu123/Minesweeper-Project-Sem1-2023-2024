@@ -8,10 +8,6 @@ Examples:
    java -jar Minesweeper.jar	
    java -jar Minesweeper.jar 20 50
 
-II. How to play:
-	do the same as what you do on the Microsoft Minesweeper:
-	1. left click to uncover a cell
-	2. right click to flag/unflag a cell
-III. References:
+II. References:
      The icon image (skin) is polled out from:
      http://www.minesweeper.info/downloads/MinesweeperX.html
