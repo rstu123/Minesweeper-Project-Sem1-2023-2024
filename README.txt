@@ -7,6 +7,7 @@ If parameters are not specified, will load default.
 Examples:
    java -jar Minesweeper.jar	
    java -jar Minesweeper.jar 20 50
+NOTE: PLEASE RUN IT ON JDK 21 
 
 II. References:
      The icon image (skin) is polled out from:
